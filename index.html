@@ -6,6 +6,7 @@
     <title>抖音来客 · 商家入驻</title>
     <link rel="stylesheet" href="https://lf3-static.bytednsdoc.com/obj/eden-cn/m-ljuhpssh/ljhwZthlaukjikulzlp/DouyinNumberABC/douyinNumber.css" />
     <style>
+      @font-face { font-family: "Douyin Sans"; src: url("assets/fonts/DouyinSansBold.otf") format("opentype"); font-style: normal; font-weight: 700; font-display: swap; }
       :root {
         --primary: #387aff;
         --primary-hover: #6fa1ff;
@@ -38,6 +39,17 @@
       .nav-links a.active { color: var(--primary); font-weight: 500; }
       .nav-actions { display: flex; align-items: center; margin-left: auto; }
       .nav-button { display: inline-flex; height: 48px; align-items: center; justify-content: center; padding: 0 22px; border: 1px solid var(--primary); border-radius: 999px; color: var(--primary); background: transparent; font-size: 16px; font-weight: 500; white-space: nowrap; }
+      .nav-download { position: relative; flex: 0 0 auto; }
+      .nav-download::after { position: absolute; top: 100%; left: 50%; width: 192px; height: 6px; transform: translateX(-50%); content: ""; }
+      .nav-download-trigger { padding: 0 20px; transition: background-color .2s ease; }
+      .nav-download-trigger:hover, .nav-download.is-open .nav-download-trigger { background: rgb(56 122 255 / .05); }
+      .nav-download-trigger:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+      .nav-download-popover { position: absolute; z-index: 2; top: calc(100% + 6px); left: 50%; width: 192px; opacity: 0; visibility: hidden; pointer-events: none; transform: translate(-50%, -4px); filter: drop-shadow(0 0 .5px rgb(16 17 20 / .08)) drop-shadow(0 4px 4px rgb(16 17 20 / .04)) drop-shadow(0 12px 18px rgb(16 17 20 / .06)); transition: opacity .18s ease, transform .22s var(--ease), visibility 0s linear .22s; }
+      .nav-download.is-open .nav-download-popover { opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0); transition-delay: 0s; }
+      .nav-download-arrow { width: 18px; height: 6px; margin: 0 auto; }
+      .nav-download-body { display: flex; flex-direction: column; align-items: center; gap: 7px; width: 192px; padding: 16px; border-radius: 12px; background: #fff; }
+      .nav-download-code { width: 160px; height: 160px; }
+      .nav-download-caption { margin: 0; color: var(--text-2); font-size: 14px; font-weight: 400; line-height: 22px; white-space: nowrap; }
       .nav-register-slot { position: relative; width: 0; height: 48px; margin-left: 0; overflow: visible; flex: 0 0 auto; pointer-events: none; visibility: hidden; transition: width .48s .1s var(--ease), margin-left .48s .1s var(--ease), visibility 0s linear .58s; }
       .nav-register-slot.is-visible { width: 140px; margin-left: 12px; pointer-events: auto; visibility: visible; transition: width .64s cubic-bezier(.16, 1, .3, 1), margin-left .64s cubic-bezier(.16, 1, .3, 1), visibility 0s; }
       .nav-register { position: absolute; top: 0; right: 0; display: inline-flex; width: 140px; height: 48px; align-items: center; gap: 12px; padding: 0 12px 0 22px; border-radius: 999px; color: #fff; background: var(--primary); font-size: 16px; font-weight: 500; white-space: nowrap; opacity: 0; transform: translateY(4px) scale(.98); transform-origin: right center; transition: opacity .18s ease, transform .36s var(--ease), background .2s ease; }
@@ -122,11 +134,11 @@
       .join-modal-layout { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: inherit; }
       .join-modal-art { position: absolute; top: 1px; bottom: 1px; left: 1px; width: 560px; overflow: hidden; border-radius: 47px 0 0 47px; background: #fef2ff; }
       .join-modal-layer { position: absolute; max-width: none; pointer-events: none; }
-      .join-modal-main-art { position: absolute; top: 0; left: 0; width: 536px; height: 542px; max-width: none; pointer-events: none; }
-      .join-modal-logo { position: absolute; top: 33px; left: 43px; width: 144.9004px; height: 44px; }
-      .join-modal-benefits { position: absolute; top: 472px; left: 38px; display: flex; width: 412px; height: 28px; align-items: center; justify-content: space-between; white-space: nowrap; }
-      .join-modal-benefits span { display: flex; align-items: center; gap: 4px; color: var(--text-3); font-size: 16px; line-height: 28px; }
-      .join-modal-benefits img { width: 28px; height: 28px; object-fit: contain; }
+      .join-modal-main-art { position: absolute; top: 3.3973388671875px; left: 0; width: 560px; height: 544.6026611328125px; max-width: none; pointer-events: none; }
+      .join-modal-logo { position: absolute; top: 48px; left: 309px; width: 144.9004px; height: 44px; }
+      .join-modal-benefits { position: absolute; top: 364px; left: 58px; display: flex; width: 412px; height: 136px; flex-direction: column; align-items: flex-start; gap: 20px; white-space: nowrap; }
+      .join-modal-benefits span { display: flex; height: 32px; align-items: center; gap: 4px; color: var(--text-2); font-size: 16px; line-height: 28px; }
+      .join-modal-benefits img { width: 32px; height: 32px; object-fit: contain; }
       .join-modal-panel { position: absolute; top: 0; right: 0; width: 581px; height: 100%; border-radius: 48px; background: #fff; }
       .join-modal-close { position: absolute; top: 24px; right: 24px; display: grid; width: 36px; height: 36px; padding: 0; place-items: center; border: 0; border-radius: 50%; background: #f7f8fa; color: #0e0e0f; font-size: 24px; line-height: 1; }
       .join-modal-close:hover { background: #eef1f4; }
@@ -154,7 +166,7 @@
       .cases { padding-top: 77px; padding-bottom: 60px; }
       .cases .section-inner { width: 1280px; max-width: none; }
       .cases .outline-link { font-weight: 600; }
-      .case-row { display: flex; width: max-content; height: 402px; align-items: flex-start; gap: 20px; transform: translate3d(var(--case-offset, 0), 0, 0); transition: transform .72s cubic-bezier(.22, 1, .36, 1); will-change: transform; }
+      .case-row { display: flex; width: max-content; height: 402px; align-items: flex-start; gap: 20px; transform: translate3d(var(--case-offset, 0), 0, 0); transition: none; will-change: transform; }
       .case-controls { display: flex; width: 100%; justify-content: flex-end; gap: 24px; margin-top: 32px; }
       .case-arrow { display: grid; width: 60px; height: 48px; padding: 0; place-items: center; border: 1px solid #edf0f3; border-radius: 999px; color: #1f2329; background: #f7f8fa; cursor: pointer; transition: color .2s ease, background-color .2s ease, transform .2s ease; }
       .case-arrow:not(:disabled):hover { background: #f1f3f5; }
@@ -287,9 +299,9 @@
       .data-metric.right::before { left: -75.89921px; background-image: url("assets/figma-export/curated/eco29-40553.png"); }
       .data-metric img { width: 120px; max-width: none; height: 120px; grid-row: 1 / 3; object-fit: contain; transform: translate(-38px, 14px); }
       .data-metric span { overflow: visible; color: var(--text-3); font-size: 13px; line-height: 21px; white-space: nowrap; }
-      .data-metric strong { font-size: 20px; font-weight: 500; line-height: 25px; white-space: nowrap; }
-      .channel-back { --eco-hover-x: -8px; --eco-hover-y: -3px; z-index: 1; top: 72.02569px; left: 244.07515px; width: 315.58716px; height: 400.79468px; }
-      .channel-front { --eco-hover-x: 8px; --eco-hover-y: -7px; z-index: 3; top: 38.48777px; left: 391.49104px; width: 343.02191px; height: 442.10715px; }
+      .data-metric strong { font-family: "Douyin Sans", sans-serif; font-size: 20px; font-weight: 700; line-height: 25px; white-space: nowrap; }
+      .channel-back { --eco-hover-x: 2px; --eco-hover-y: -3px; z-index: 1; top: 72.02569px; left: 244.07515px; width: 315.58716px; height: 400.79468px; }
+      .channel-front { --eco-hover-x: -6px; --eco-hover-y: -7px; z-index: 3; top: 38.48777px; left: 391.49104px; width: 343.02191px; height: 442.10715px; }
       @media (hover: hover) and (pointer: fine) {
         .eco-card:hover .eco-piece, .eco-card:hover .data-metric { translate: var(--eco-hover-x, 0px) var(--eco-hover-y, 0px); }
       }
@@ -303,74 +315,76 @@
       .eco-card.entering .tertiary-piece { animation: eco-enter-secondary .58s var(--ease) .12s both; }
       @keyframes eco-enter-secondary { from { opacity: 0; transform: translateY(25px) var(--piece-transform, translateZ(0)) scale(.86); } to { opacity: 1; transform: translateY(0) var(--piece-transform, translateZ(0)); } }
 
-      .onboarding { position: relative; overflow: hidden; isolation: isolate; padding: 72px 32px 63px; background: linear-gradient(180deg, #eaf8ff 0%, #f6fcff 66%, #fff 100%); }
-      .onboarding::after { position: absolute; z-index: 0; right: 0; bottom: 0; left: 0; height: 40%; background: linear-gradient(180deg, transparent 0%, rgb(255 255 255 / .62) 58%, #fff 100%); content: ""; pointer-events: none; }
-      .onboarding-light-field { position: absolute; z-index: 0; inset: -80px -100px 0; overflow: hidden; pointer-events: none; }
-      .onboarding-flow { width: 100%; height: 100%; overflow: visible; }
-      .onboarding-flow path { fill: none; stroke-linecap: round; filter: blur(34px); transform-origin: center; will-change: transform, opacity; }
-      .onboarding-flow--primary { stroke: url(#onboarding-flow-blue); stroke-width: 112px; opacity: .3; }
-      .onboarding-flow--secondary { stroke: url(#onboarding-flow-cyan); stroke-width: 84px; opacity: .22; }
-      .onboarding-flow--highlight { stroke: url(#onboarding-flow-white); stroke-width: 82px; stroke-dasharray: 125 875; stroke-dashoffset: -350; opacity: .65; filter: blur(20px); }
-      .onboarding-flow--core { stroke: #fff; stroke-width: 16px; stroke-dasharray: 125 875; stroke-dashoffset: -350; opacity: .44; filter: blur(8px); }
+      .onboarding { position: relative; overflow: hidden; isolation: isolate; padding: 60px 32px; scroll-margin-top: 44px; background: #fff; }
+      .onboarding-background { position: absolute; z-index: 0; top: 0; left: 50%; width: 1680px; height: 586px; transform: translateX(-50%); pointer-events: none; }
+      .onboarding-background img { position: absolute; max-width: none; }
       .onboarding > .section-inner { position: relative; z-index: 1; }
       .onboarding [data-reveal], .onboarding [data-reveal].visible { opacity: 1; filter: none; transform: none; animation: none; }
-      .onboarding .section-head { margin-bottom: 26px; }
+      .onboarding .section-head { margin-bottom: 24px; }
       .onboarding .outline-link { color: var(--primary); background: transparent; }
-      .steps-tabs { position: relative; display: flex; width: 220px; height: 48px; gap: 4px; margin-bottom: 27px; padding: 4px; border-radius: 999px; background: rgb(0 39 78 / .05); box-shadow: inset 0 0 0 .42px rgb(0 24 61 / .08); }
+      .steps-tabs { position: relative; display: flex; width: 220px; height: 48px; gap: 4px; margin-bottom: 30px; padding: 4px; border-radius: 999px; background: rgb(0 39 78 / .05); box-shadow: inset 0 0 0 .42px rgb(0 24 61 / .08); }
       .steps-tabs::before { position: absolute; top: 4px; left: 4px; width: 104px; height: 40px; border-radius: 999px; background: #fff; box-shadow: 0 5px 18px rgb(45 91 127 / .08); content: ""; pointer-events: none; transform: translateX(var(--steps-tab-x, 0px)); transition: transform .5s var(--ease); }
       .steps-tabs[data-active-tab="1"] { --steps-tab-x: 108px; }
       .steps-tabs button { position: relative; height: 40px; flex: 0 0 104px; padding: 0; border: 0; border-radius: 999px; color: var(--text-2); background: transparent; font-size: 16px; line-height: 24px; transition: color .2s ease, background .2s ease; }
       .steps-tabs button.active { color: var(--text); font-weight: 600; }
       .steps-tabs button:not(.active):hover { color: var(--text); background: rgb(255 255 255 / .35); }
       .steps-tabs button:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
-      .step-panels { position: relative; height: 340px; }
+      .step-panels { position: relative; height: 307px; }
       .step-grid { position: absolute; inset: 0; display: grid; grid-template-columns: 413px 414px 413px; gap: 20px; }
       .step-grid[hidden] { display: none; }
       .step-grid.is-active { z-index: 1; }
-      .step-grid--chain { grid-template-columns: 629px 629px; gap: 21px; }
       .step-grid.is-entering .step-card { animation: steps-card-enter .52s var(--ease) calc(var(--step-order, 0) * 50ms) both; }
       .step-grid.is-leaving { pointer-events: none; animation: steps-panel-exit .22s ease both; }
       @keyframes steps-card-enter { from { opacity: 0; transform: translate3d(0, 12px, 0); } to { opacity: 1; transform: none; } }
       @keyframes steps-panel-exit { from { opacity: 1; } to { opacity: 0; } }
-      .step-card { position: relative; height: 340px; border-radius: 32px; }
-      .step-card-surface { position: relative; width: 100%; height: 100%; overflow: hidden; border: 1px solid rgb(255 255 255 / .9); border-radius: inherit; background: linear-gradient(180deg, rgb(255 255 255 / .4) 0%, #fff 100%); box-shadow: 0 10px 60px rgb(0 0 0 / .04); transform: perspective(800px) rotateX(var(--step-rotate-x, 0deg)) rotateY(var(--step-rotate-y, 0deg)); transform-origin: center; transition: transform .45s cubic-bezier(.165, .84, .44, 1); }
+      .step-card { position: relative; height: 307px; border-radius: 32px; }
+      .step-card-surface { position: relative; width: 100%; height: 100%; overflow: hidden; border: 0; border-radius: inherit; background: var(--step-background); transform: perspective(800px) rotateX(var(--step-rotate-x, 0deg)) rotateY(var(--step-rotate-y, 0deg)); transform-origin: center; transition: transform .45s cubic-bezier(.165, .84, .44, 1); }
+      .step-card-surface::after { position: absolute; inset: 0; border: 1.5px solid #fff; border-radius: inherit; mask-image: linear-gradient(#fff, transparent); pointer-events: none; content: ""; }
+      .step-card:nth-child(1) { --step-background: linear-gradient(178.201deg, rgb(255 255 255 / .4) 4.6685%, #fff 53.406%); }
+      .step-card:nth-child(2) { --step-background: linear-gradient(158.412deg, rgb(255 255 255 / .4) 24.014%, #fff 68.501%); }
+      .step-card:nth-child(3) { --step-background: linear-gradient(173deg, rgb(255 255 255 / .4) 23.711%, #fff 69.088%); }
+      .step-grid--chain .step-copy { padding-top: 34px; }
       .step-copy { position: relative; z-index: 3; padding-top: 30px; text-align: center; }
       .step-copy h3 { margin: 0; font-size: 24px; font-weight: 600; line-height: 34px; }
       .step-copy p { margin: 8px 0 0; color: var(--text-2); font-size: 16px; line-height: 24px; }
-      .step-time { display: inline-flex; height: 30px; align-items: center; margin-top: 8px; padding: 0 8px; border-radius: 999px; color: #387aff; background: #edf5ff; font-size: 12px; line-height: 16px; }
-      .step-stage { position: absolute; right: 0; bottom: -1px; left: 0; height: 173px; }
+      .step-stage { position: absolute; right: 0; bottom: 0; left: 0; height: 173px; }
       .step-art { position: absolute; bottom: 0; left: calc(50% + var(--step-art-offset, 0px)); display: block; width: 250px; height: 173px; max-width: none; transform: translateX(-50%); }
-      .step-card:nth-child(1) { --step-art-offset: 2.5px; }
+      .step-card:nth-child(1) { --step-art-offset: 3.5px; }
       .step-card:nth-child(2) { --step-art-offset: 8px; }
       .step-card:nth-child(3) { --step-art-offset: 7px; }
       .step-card:nth-child(3) .step-art { width: 249px; }
-      .step-grid--chain .step-card:nth-child(1) { --step-art-offset: .5px; }
+      .step-grid--chain .step-card:nth-child(1) { --step-art-offset: -.5px; }
       .step-grid--chain .step-card:nth-child(2) { --step-art-offset: 0px; }
-      .step-grid--chain .step-card:nth-child(2) .step-art { width: 249px; }
 
-      .faq { padding: 80px 32px 60px; }
+      .faq { padding: 80px 32px 0; scroll-margin-top: 24px; }
+      .faq-header { display: flex; height: 58px; align-items: flex-start; justify-content: space-between; }
+      .faq-header h2 { margin: 0; color: #1d2129; font-size: 40px; font-weight: 600; line-height: 58px; }
+      .faq-header .outline-link { width: 140px; }
+      .faq .outline-link { height: 48px; justify-content: center; gap: 4px; padding: 0; font-weight: 500; }
       .faq-layout { display: grid; grid-template-columns: 325px 854px; gap: 100px; }
-      .faq-intro { padding-top: 11px; }
-      .faq-intro h2 { margin: 0; font-size: 40px; font-weight: 600; line-height: 58px; }
-      .faq-intro .outline-link { margin-top: 28px; }
-      .faq-list { border-top: 0; }
-      .faq-item { border-bottom: 1px solid var(--line); }
-      .faq-question { display: flex; width: 100%; min-height: 81px; align-items: center; justify-content: space-between; gap: 24px; padding: 0; border: 0; background: transparent; text-align: left; font-size: 24px; font-weight: 500; line-height: 34px; transition: color .2s ease; }
+      .faq-intro .outline-link { width: 170px; margin-top: 24px; }
+      .faq-rule-arrow { -webkit-mask: url("assets/figma-export/curated/faq31-rule-arrow.svg") center / 20px 20px no-repeat; mask: url("assets/figma-export/curated/faq31-rule-arrow.svg") center / 20px 20px no-repeat; }
+      .faq-list { border-top: 0; scroll-margin-top: 104px; }
+      .faq-item { box-shadow: inset 0 -.5px 0 #d3d9e0; }
+      .faq-question { display: flex; width: 100%; min-height: 82px; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 0; border: 0; color: #000; background: transparent; text-align: left; font-size: 24px; font-weight: 600; line-height: 34px; transition: color .2s ease; }
       .faq-question:hover { color: var(--primary); }
       .faq-question:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; border-radius: 4px; }
-      .faq-chevron { flex: 0 0 20px; color: var(--text-2); transform: rotate(90deg); transition: transform .44s var(--ease), color .2s ease; }
+      .faq-chevron { width: 16px; height: 16px; flex: 0 0 16px; color: #161823; -webkit-mask: url("assets/figma-export/curated/faq31-chevron.svg") center / 16px 16px no-repeat; mask: url("assets/figma-export/curated/faq31-chevron.svg") center / 16px 16px no-repeat; transform: rotate(0deg); transition: transform .32s var(--ease), color .2s ease; }
+      .faq-question[aria-expanded="true"] .faq-chevron { transform: rotate(180deg); }
       .faq-question:hover .faq-chevron { color: var(--primary); }
       .faq-answer { display: grid; grid-template-rows: 0fr; visibility: hidden; opacity: 0; color: var(--text-2); font-size: 16px; line-height: 24px; transform: translate3d(0, -4px, 0); transition: grid-template-rows .48s var(--ease), opacity .24s ease, transform .4s var(--ease), visibility 0s linear .48s; }
       .faq-answer-inner { min-height: 0; overflow: hidden; }
-      .faq-answer p { min-height: 72px; margin: 0; padding-bottom: 24px; }
+      .faq-answer p { max-width: 846px; margin: 0; padding-bottom: 24px; }
       .faq-item.open .faq-answer { grid-template-rows: 1fr; visibility: visible; opacity: 1; transform: none; transition-delay: 0s; }
-      .faq-item.open .faq-chevron { transform: rotate(-90deg); }
-      .join-bar { position: relative; display: flex; width: 429px; height: 68px; align-items: center; justify-content: center; margin: 60px auto 0; overflow: hidden; isolation: isolate; border-radius: 999px; color: #fff; background: var(--primary); font-size: 24px; font-weight: 500; line-height: 36px; transition: transform .28s var(--ease); }
+      .join-banner { position: relative; height: 302px; margin-top: 91px; overflow: hidden; }
+      .join-banner-visual { position: absolute; top: 0; left: 50%; width: 1680px; height: 302px; transform: translateX(-50%); pointer-events: none; }
+      .footer-art { display: block; width: 1680px; height: 302px; max-width: none; }
+      .join-bar { position: relative; left: 4.5px; display: flex; width: 429px; height: 68px; align-items: center; justify-content: center; margin: 91px auto 0; overflow: hidden; isolation: isolate; border-radius: 999px; color: #fff; background: var(--primary); font-size: 24px; font-weight: 500; line-height: 36px; transition: transform .28s var(--ease); }
       .join-bar::before { position: absolute; z-index: -1; top: -50%; left: 0; width: 38%; height: 200%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / .05) 20%, rgb(255 255 255 / .24) 50%, rgb(255 255 255 / .05) 80%, transparent); content: ""; pointer-events: none; transform: translate3d(-140%, 0, 0) skewX(-18deg); animation: join-bar-sheen 3s .3s ease-in-out infinite; }
       @keyframes join-bar-sheen { 0%, 8% { opacity: 0; transform: translate3d(-140%, 0, 0) skewX(-18deg); } 14% { opacity: 1; } 54% { opacity: 1; transform: translate3d(360%, 0, 0) skewX(-18deg); } 60%, 100% { opacity: 0; transform: translate3d(360%, 0, 0) skewX(-18deg); } }
       .join-bar > span { position: absolute; right: 10px; display: grid; width: 48px; height: 48px; overflow: hidden; place-items: center; border-radius: 50%; color: var(--primary); background: #fff; }
-      .join-arrow-track { position: relative; display: block; width: 20px; height: 20px; }
-      .join-arrow-track .ui-arrow { position: absolute; top: 0; left: 0; -webkit-mask-size: 17.49945px 14.99958px; mask-size: 17.49945px 14.99958px; }
+      .join-arrow-track { position: relative; display: block; width: 37px; height: 37px; }
+      .join-arrow-track .ui-arrow { position: absolute; top: 0; left: 0; width: 37px; height: 37px; -webkit-mask: url("assets/figma-export/curated/footer31-cta-arrow.svg") center / 37px 37px no-repeat; mask: url("assets/figma-export/curated/footer31-cta-arrow.svg") center / 37px 37px no-repeat; -webkit-mask-size: 37px 37px; mask-size: 37px 37px; }
       .join-arrow-track .join-arrow-copy { left: -48px; }
       @keyframes join-arrow-roll { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(48px, 0, 0); } }
       @media (hover: hover) and (pointer: fine) {
@@ -380,24 +394,26 @@
       .join-bar:focus-visible { outline: 2px solid var(--primary); outline-offset: 5px; }
       .join-bar:active { transform: translateY(0) scale(.985); transition-duration: .12s; }
 
-      .footer { position: relative; overflow: hidden; padding: 0 32px 28px; }
-      .footer-tail { position: absolute; z-index: 0; top: 84px; left: calc(50% + 627px); width: 213px; height: 274px; pointer-events: none; }
-      .footer-card { position: relative; z-index: 1; display: flex; width: 1377px; min-height: 317px; align-items: flex-start; margin: 0 auto; overflow: hidden; border-radius: 32px; background: #fff; box-shadow: 0 10px 60px rgb(0 0 0 / .06); }
-      .footer-copy { position: relative; z-index: 3; width: 40%; padding-top: 68px; padding-left: 49px; }
+      .footer { position: relative; padding: 26px 32px 32px; color: #6c737a; }
+      .footer-card { position: relative; display: flex; width: var(--page-width); min-height: 166px; align-items: flex-start; justify-content: space-between; margin: 0 auto; }
+      .footer-copy { width: 384px; margin-left: 4px; }
       .footer-logo { width: 176px; height: 40px; object-fit: contain; object-position: left center; }
-      .footer-copy p { max-width: 380px; margin: 20px 0 0 4px; color: var(--text-2); font-size: 14px; line-height: 28px; }
-      .footer-benefits { display: flex; align-items: center; gap: 24px; margin: 30px 0 0 4px; white-space: nowrap; }
-      .footer-benefit { display: inline-flex; align-items: center; gap: 8px; color: var(--text-2); font-size: 14px; line-height: 22px; }
-      .footer-benefit img { width: 20px; height: 20px; flex: 0 0 20px; object-fit: contain; }
-      .footer-art { position: absolute; z-index: 1; top: 0; left: 146px; width: 973px; height: 317px; }
-      .footer-glass { position: absolute; z-index: 2; top: 107px; right: 0; width: 117px; height: 210px; border: 1px solid #fff; border-radius: 0 32px 0 0; backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); pointer-events: none; }
-      .qr-group { position: absolute; z-index: 3; top: 83px; right: 68px; display: flex; gap: 29px; }
-      .qr { width: 123px; text-align: center; }
-      .qr:nth-child(2) { width: 126px; }
+      .footer-copy p { max-width: 384px; margin: 21px 0 0; font-size: 16px; line-height: 28px; }
+      .footer-benefits { display: flex; width: 380px; align-items: center; justify-content: space-between; margin-top: 21px; white-space: nowrap; }
+      .footer-benefit { display: inline-flex; align-items: center; gap: 6px; font-size: 16px; line-height: 28px; }
+      .footer-benefit img { width: 24px; height: 24px; flex: 0 0 24px; object-fit: contain; }
+      .qr-group { display: flex; width: 308px; align-items: flex-start; justify-content: space-between; gap: 36px; margin-top: 4px; }
+      .qr { display: flex; width: 128px; flex: 0 0 128px; flex-direction: column; align-items: center; text-align: center; }
+      .qr:first-child { padding-top: .5px; }
+      .qr:nth-child(2) { width: 144px; flex-basis: 144px; }
       .qr-box { display: block; width: 123px; height: 123px; }
-      .qr span { display: block; margin-top: 7px; color: var(--text-3); font-size: 14px; line-height: 22px; white-space: nowrap; }
-      .legal { width: var(--page-width); margin: 24px auto 0; color: #00183d3d; font-size: 12px; line-height: 18px; text-align: center; }
+      .qr span { display: block; margin-top: 7px; font-size: 16px; line-height: 28px; white-space: nowrap; }
+      .qr:nth-child(2) span { margin-top: 8px; }
+      .legal { display: flex; width: var(--page-width); align-items: center; justify-content: center; gap: 12px; margin: 73px auto 0; color: #a8abb2; font-size: 12px; line-height: 18px; white-space: nowrap; }
+      .legal-divider { width: 1px; height: 11px; flex: 0 0 1px; }
+      .legal a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
       @media (prefers-reduced-motion: reduce) {
+        .nav-download-trigger, .nav-download-popover { transition: none; }
         html { scroll-behavior: auto; }
         .join-modal[open]::backdrop, .join-modal[open] .join-modal-main-art { animation: none; }
         .join-bar::before { display: none; animation: none; }
@@ -406,7 +422,7 @@
         .join-bar:hover .join-arrow-track { animation: none; transform: none; }
         .join-arrow-copy { display: none; }
         .nav-register-slot, .nav-register-slot.is-visible, .nav-register, .nav-register-slot.is-visible .nav-register, .nav-register-arrow, .nav-register-slot.is-visible .nav-register-arrow { transition: none; }
-        .hero-bg, .hero-floor-light, .hero-copy, .hero-register, .hero-panel.is-active, .onboarding-flow path { animation: none; }
+        .hero-bg, .hero-floor-light, .hero-copy, .hero-register, .hero-panel.is-active { animation: none; }
         .hero-panel.is-leaving, .hero-panel.is-active .hero-bg, .hero-panel.is-leaving .hero-bg, .hero-panel.is-leaving .hero-copy, .hero-panel.is-active .hero-copy h1, .hero-panel.is-active .hero-copy p { animation: none; }
         .hero-tabs::before, .hero-tab { transition: none; }
         .steps-tabs::before, .steps-tabs button, .faq-question, .faq-chevron, .faq-answer { transition: none; }
@@ -436,15 +452,14 @@
       .hero-submit,
       .outline-link[data-open-register],
       .join-bar { font-weight: 700; }
-      .faq-intro .outline-link { font-weight: 700; }
     </style>
   </head>
   <body>
     <header class="site-nav-shell" id="siteNav">
       <nav class="site-nav" aria-label="主导航">
         <a href="#top" aria-label="抖音来客首页"><img class="site-logo" src="assets/figma-export/curated/nav-logo-original@4x.png" width="130.1333" height="32" alt="抖音来客" /></a>
-        <div class="nav-links"><a class="active" href="#top">首页</a><a href="#cases">学习中心</a><a href="#onboarding">入驻规则</a><a href="#faq">合作伙伴查询</a></div>
-        <div class="nav-actions"><a class="nav-button" href="#onboarding">下载App</a><span class="nav-register-slot" aria-hidden="true" inert><a class="nav-register" href="#top" tabindex="-1" data-open-register>立即入驻 <span class="nav-register-arrow" aria-hidden="true"><span class="ui-arrow"></span></span></a></span></div>
+        <div class="nav-links"><a class="active" href="#top">首页</a><a href="#cases">学习中心</a><a href="#faq">常见问题</a><a href="#faq">合作伙伴查询</a></div>
+        <div class="nav-actions"><div class="nav-download"><button class="nav-button nav-download-trigger" type="button" aria-expanded="false" aria-controls="navDownloadQr" aria-describedby="navDownloadQr">下载App</button><div class="nav-download-popover" id="navDownloadQr" role="tooltip" aria-hidden="true" inert><img class="nav-download-arrow" src="assets/figma-export/curated/navqr38-arrow.svg" width="18" height="6" alt="" /><div class="nav-download-body"><img class="nav-download-code" src="assets/figma-export/curated/navqr38-code@3x.png" width="160" height="160" alt="抖音来客App下载二维码" /><p class="nav-download-caption">下载抖音来客APP</p></div></div></div><span class="nav-register-slot" aria-hidden="true" inert><a class="nav-register" href="#top" tabindex="-1" data-open-register>立即入驻 <span class="nav-register-arrow" aria-hidden="true"><span class="ui-arrow"></span></span></a></span></div>
       </nav>
     </header>
 
@@ -461,7 +476,7 @@
           </div>
           <div class="hero-panel hero-panel--ai" id="hero-panel-ai" role="tabpanel" aria-labelledby="hero-tab-ai" aria-hidden="true" tabindex="-1" inert hidden>
             <img class="hero-bg" src="assets/figma-export/curated/banner-ai.png" width="1679" height="605" alt="" />
-            <div class="hero-copy"><h1>AI创作 上热门</h1><p>丰富的内容运营工具，一键生成全套营销素材</p></div>
+            <div class="hero-copy"><h1>AI创作 上热门</h1><p>丰富的运营工具，一键生成爆款引流视频</p></div>
           </div>
           <div class="hero-tabs" role="tablist" aria-label="平台优势">
             <button class="hero-tab active" id="hero-tab-support" type="button" role="tab" aria-controls="hero-panel-support" aria-selected="true" tabindex="0">新商扶持</button>
@@ -493,7 +508,7 @@
             <article class="case-card yuanmai" tabindex="0" data-reveal><img class="case-bg" src="assets/figma-export/curated/case26-bg-yuanmai.png" alt="原麦山丘" /><span class="case-type">餐饮行业</span><span class="case-brand"><img src="assets/figma-export/curated/case26-logo-yuanmai.png" alt="原麦山丘 Logo" /></span><div class="case-copy"><h3>原麦山丘</h3><p class="case-detail">2023年9月入驻后通过海量短视频种草+品牌自播, 实现了从线下的转！</p><div class="case-metrics"><div><span>直播销售额</span><strong>42,089</strong></div></div></div></article>
           </div>
           <div class="case-controls" aria-label="案例翻页">
-            <button class="case-arrow case-arrow-prev" type="button" aria-label="上一组案例" disabled>
+            <button class="case-arrow case-arrow-prev" type="button" aria-label="上一组案例">
               <span class="ui-arrow ui-arrow--left" aria-hidden="true"></span>
             </button>
             <button class="case-arrow case-arrow-next" type="button" aria-label="下一组案例">
@@ -536,7 +551,7 @@
         <div class="section-inner">
           <div class="section-head"><div data-reveal><h2>丰富的产品生态，<br />经营的起点在抖音来客</h2></div><a class="outline-link" href="#onboarding" data-reveal data-open-register>立即入驻<span class="ui-arrow" aria-hidden="true"></span></a></div>
           <div class="eco-grid" data-stagger>
-            <article class="eco-card tools" tabindex="0" data-reveal><div class="eco-copy"><h3>经营工具箱</h3><p>抖音来客提供商品管理、权限管理等<br />全套经营工具，助力高效经营</p></div><div class="eco-stage"><img class="eco-piece toolbox-back secondary-piece" data-figma-node="20792:40580" src="assets/figma-export/curated/toolbox27-40580.png" alt="" /><img class="eco-piece toolbox-middle tertiary-piece" data-figma-node="20792:40581" src="assets/figma-export/curated/toolbox27-40581.png" alt="" /><img class="eco-piece toolbox-shadow primary-piece" data-figma-node="20792:40582" src="assets/figma-export/curated/toolbox27-40582.png" alt="" /><img class="eco-piece toolbox-main primary-piece" data-figma-node="20792:40583" src="assets/figma-export/curated/toolbox27-40583.png" alt="商家经营面板" /></div></article>
+            <article class="eco-card tools" tabindex="0" data-reveal><div class="eco-copy"><h3>高效经营</h3><p>抖音来客提供商品管理、权限管理等<br />全套经营工具，助力高效经营</p></div><div class="eco-stage"><img class="eco-piece toolbox-back secondary-piece" data-figma-node="20792:40580" src="assets/figma-export/curated/toolbox27-40580.png" alt="" /><img class="eco-piece toolbox-middle tertiary-piece" data-figma-node="20792:40581" src="assets/figma-export/curated/toolbox27-40581.png" alt="" /><img class="eco-piece toolbox-shadow primary-piece" data-figma-node="20792:40582" src="assets/figma-export/curated/toolbox27-40582.png" alt="" /><img class="eco-piece toolbox-main primary-piece" data-figma-node="20792:40583" src="assets/figma-export/curated/toolbox27-40583.png" alt="商家经营面板" /></div></article>
             <article class="eco-card promo" tabindex="0" data-reveal><div class="eco-copy"><h3>流量推广</h3><p>超多营销推广工具，同城引流更轻松</p></div><div class="eco-stage"><img class="eco-piece traffic-main primary-piece" data-figma-node="20792:40493" src="assets/figma-export/curated/eco29-40493.png" alt="流量推广工具" /><img class="eco-piece traffic-avatar-male secondary-piece" src="assets/figma-export/curated/流量推广-5.png" alt="合作达人头像" /><img class="eco-piece traffic-location secondary-piece" data-figma-node="20792:40494" src="assets/figma-export/curated/eco29-40494.png" alt="本地推广" /><img class="eco-piece traffic-flame tertiary-piece" data-figma-node="20792:40531" src="assets/figma-export/curated/eco29-40531.png" alt="热门推广" /><img class="eco-piece traffic-avatar-female tertiary-piece" src="assets/figma-export/curated/流量推广-4.png" alt="合作达人头像" /></div></article>
             <article class="eco-card data" tabindex="0" data-reveal><div class="eco-copy"><h3>数据监控</h3><p>流量、订单数据全掌控，指引经营风向标</p></div><div class="eco-stage"><img class="eco-piece data-main primary-piece" data-figma-node="20792:40551" src="assets/figma-export/curated/eco29-40551.png" alt="数据监控面板" /><div class="data-metric left secondary-piece"><img src="assets/figma-export/curated/数据监控-1.png" alt="" /><span>成交金额</span><strong>97,570</strong></div><div class="data-metric right tertiary-piece"><img src="assets/figma-export/curated/数据监控-2.png" alt="" /><span>核销金额</span><strong>64,897</strong></div></div></article>
             <article class="eco-card channels" tabindex="0" data-reveal><div class="eco-copy"><h3>多渠道、多形式获客</h3><p>分享店铺日常和环境，就能在抖音触达你的<br />顾客，吸引顾客到店</p></div><div class="eco-stage"><img class="eco-piece channel-back secondary-piece" data-figma-node="20792:40571" src="assets/figma-export/curated/eco29-40571.png" alt="团购内容页" /><img class="eco-piece channel-front primary-piece" data-figma-node="20792:40573" src="assets/figma-export/curated/eco29-40573.png" alt="本地生活内容页" /></div></article>
@@ -545,34 +560,27 @@
       </section>
 
       <section class="onboarding" id="onboarding" data-section>
-        <div class="onboarding-light-field" aria-hidden="true">
-          <svg class="onboarding-flow" viewBox="0 0 1600 700" preserveAspectRatio="none" focusable="false">
-            <defs>
-              <linearGradient id="onboarding-flow-blue" x1="0" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#64c5ff" stop-opacity=".1" /><stop offset=".34" stop-color="#58beff" stop-opacity=".58" /><stop offset=".7" stop-color="#b8eaff" stop-opacity=".35" /><stop offset="1" stop-color="#79cfff" stop-opacity=".08" /></linearGradient>
-              <linearGradient id="onboarding-flow-cyan" x1="0" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#b5edff" stop-opacity=".05" /><stop offset=".48" stop-color="#7dd8ff" stop-opacity=".5" /><stop offset=".8" stop-color="#b7ebff" stop-opacity=".4" /><stop offset="1" stop-color="#a3e5ff" stop-opacity=".06" /></linearGradient>
-              <linearGradient id="onboarding-flow-white" x1="0" y1="0" x2="1600" y2="0" gradientUnits="userSpaceOnUse"><stop stop-color="#fff" stop-opacity="0" /><stop offset=".45" stop-color="#fff" stop-opacity=".75" /><stop offset=".75" stop-color="#fff" stop-opacity=".55" /><stop offset="1" stop-color="#fff" stop-opacity="0" /></linearGradient>
-            </defs>
-            <path class="onboarding-flow--primary" d="M -220 420 C 90 65 360 95 620 245 S 1120 505 1800 5" />
-            <path class="onboarding-flow--secondary" d="M -180 560 C 170 150 540 115 820 335 S 1380 670 1830 180" />
-            <path class="onboarding-flow--highlight" pathLength="1000" d="M -220 420 C 90 65 360 95 620 245 S 1120 505 1800 5" />
-            <path class="onboarding-flow--core" pathLength="1000" d="M -220 420 C 90 65 360 95 620 245 S 1120 505 1800 5" />
-          </svg>
+        <div class="onboarding-background" aria-hidden="true" data-figma-node="20884:188558">
+          <img src="assets/figma-export/curated/onboarding34-bg-8925@1.5x.png" data-figma-node="19970:8925" style="left: 1px; top: 0; width: 1679px; height: 586px" alt="" />
+          <img src="assets/figma-export/curated/onboarding34-bg-8926@2x.png" data-figma-node="19970:8926" style="left: 0; top: -46px; width: 1067.50439453125px; height: 635.660888671875px" alt="" />
+          <img src="assets/figma-export/curated/onboarding34-bg-8927@2x.png" data-figma-node="19970:8927" style="left: 1343px; top: 183px; width: 337px; height: 483px" alt="" />
         </div>
         <div class="section-inner">
-          <div class="section-head"><div data-reveal><h2>最快 1 小时，即可入驻抖音来客</h2></div><a class="outline-link" href="#faq" data-reveal data-open-register>立即入驻<span class="ui-arrow" aria-hidden="true"></span></a></div>
+          <div class="section-head"><div data-reveal><h2>最快 5 分钟，即可入驻抖音来客</h2></div><a class="outline-link" href="#faq" data-reveal data-open-register>立即入驻<span class="ui-arrow" aria-hidden="true"></span></a></div>
           <div class="steps-tabs" role="tablist" aria-label="选择入驻方式" data-active-tab="0" data-reveal>
             <button class="active" id="steps-tab-single" type="button" role="tab" aria-controls="steps-panel-single" aria-selected="true" tabindex="0">单店入驻</button>
             <button id="steps-tab-chain" type="button" role="tab" aria-controls="steps-panel-chain" aria-selected="false" tabindex="-1">连锁入驻</button>
           </div>
           <div class="step-panels">
           <div class="step-grid is-active" id="steps-panel-single" role="tabpanel" aria-labelledby="steps-tab-single" aria-hidden="false" tabindex="0" data-stagger>
-            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>01 认领门店</h3><span class="step-time">预计花费3分钟</span><p>搜索或创建自己的门店</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding-claim-figma.png" alt="认领门店手机画面与商家引导形象" /></div></div></article>
-            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>02 填写资质</h3><span class="step-time">预计花费3分钟</span><p>上传门店所需资质材料</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding-license-figma.png" alt="资质上传手机画面与三张证照卡" /></div></div></article>
-            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>03 平台审核</h3><span class="step-time">最快1个工作日</span><p>审核结果将以短信形式通知</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding-review-figma.png" alt="平台审核手机画面" /></div></div></article>
+            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>01 认领门店</h3><p>搜索或创建自己的门店</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-single-claim@3x.png" width="250" height="173" alt="认领门店手机画面与单店商家引导形象" /></div></div></article>
+            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>02 填写资质</h3><p>上传门店所需资质材料</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-single-license@3x.png" width="250" height="173" alt="资质上传手机画面、行业资质、营业执照与身份证" /></div></div></article>
+            <article class="step-card" data-reveal><div class="step-card-surface"><div class="step-copy"><h3>03 开启营业</h3><p>审核通过即可发布商品</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-single-open@3x.png" width="249" height="173" alt="开业筹备手机画面与发布商品入口" /></div></div></article>
           </div>
           <div class="step-grid step-grid--chain" id="steps-panel-chain" role="tabpanel" aria-labelledby="steps-tab-chain" aria-hidden="true" tabindex="-1" inert hidden>
-            <article class="step-card"><div class="step-card-surface"><div class="step-copy"><h3>02 开通连锁店账户</h3><span class="step-time">预计花费5分钟</span><p>选择你的行业，提交执照、品牌信息等信息</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/chain-account@3x.png" width="250" height="173" alt="连锁店账户开通所需的执照与品牌资质" /></div></div></article>
-            <article class="step-card"><div class="step-card-surface"><div class="step-copy"><h3>03 平台审核</h3><span class="step-time">最快1个工作日</span><p>审核结果将以短信形式通知</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/chain-review@3x.png" width="249" height="173" alt="连锁店账户资质审核状态" /></div></div></article>
+            <article class="step-card"><div class="step-card-surface"><div class="step-copy"><h3>01 填写资质</h3><p>上传门店所需资质材料</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-chain-license@3x.png" width="250" height="173" alt="连锁资质上传手机画面、品牌资质、营业执照与法人证件" /></div></div></article>
+            <article class="step-card"><div class="step-card-surface"><div class="step-copy"><h3>02 认领门店</h3><p>搜索或创建自己的门店</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-chain-claim@3x.png" width="250" height="173" alt="认领门店手机画面与连锁商家引导形象" /></div></div></article>
+            <article class="step-card"><div class="step-card-surface"><div class="step-copy"><h3>03 开启营业</h3><p>审核通过即可发布商品</p></div><div class="step-stage"><img class="step-art" src="assets/figma-export/curated/onboarding32-chain-open@3x.png" width="249" height="173" alt="开业筹备手机画面与发布商品入口" /></div></div></article>
           </div>
           </div>
         </div>
@@ -580,43 +588,44 @@
 
       <section class="faq" id="faq" data-section>
         <div class="section-inner">
+          <div class="faq-header" data-reveal><h2>困惑有答案</h2><a class="outline-link" href="#faq-list">更多常见问题</a></div>
           <div class="faq-layout">
-            <div class="faq-intro" data-reveal><h2>困惑有答案</h2><a class="outline-link" href="#top">了解更多</a></div>
-            <div class="faq-list" data-reveal>
-              <article class="faq-item open"><button class="faq-question" id="faq-question-1" type="button" aria-expanded="true" aria-controls="faq-answer-1">开通团购需要收服务费吗？ <span class="ui-arrow faq-chevron" aria-hidden="true"></span></button><div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1" aria-hidden="false"><div class="faq-answer-inner"><p>以生活服务为主体的行业基本都支持，具体费率会根据所在行业与经营类目确定。</p></div></div></article>
+            <div class="faq-intro" data-reveal><a class="outline-link" href="#onboarding">入驻规则查询<span class="ui-arrow faq-rule-arrow" aria-hidden="true"></span></a></div>
+            <div class="faq-list" id="faq-list" data-reveal>
+              <article class="faq-item open"><button class="faq-question" id="faq-question-1" type="button" aria-expanded="true" aria-controls="faq-answer-1">开通团购需要收服务费吗？ <span class="ui-arrow faq-chevron" aria-hidden="true"></span></button><div class="faq-answer" id="faq-answer-1" role="region" aria-labelledby="faq-question-1" aria-hidden="false"><div class="faq-answer-inner"><p>以生活服务为主体的行业基本都支持，包括常见的美食，饮品甜点，丽人，运动健身，休闲娱乐，酒店，民宿，游玩，景区等</p></div></div></article>
               <article class="faq-item"><button class="faq-question" id="faq-question-2" type="button" aria-expanded="false" aria-controls="faq-answer-2">入驻抖音来客需要什么材料？ <span class="ui-arrow faq-chevron" aria-hidden="true"></span></button><div class="faq-answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2" aria-hidden="true" inert><div class="faq-answer-inner"><p>需要准备营业执照、经营者身份信息，以及与行业相关的许可证明。</p></div></div></article>
               <article class="faq-item"><button class="faq-question" id="faq-question-3" type="button" aria-expanded="false" aria-controls="faq-answer-3">抖音来客支持哪些行业入驻？ <span class="ui-arrow faq-chevron" aria-hidden="true"></span></button><div class="faq-answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3" aria-hidden="true" inert><div class="faq-answer-inner"><p>餐饮、酒旅、休闲娱乐、美业、亲子、教育、医疗健康等多种本地生活行业均可入驻。</p></div></div></article>
             </div>
           </div>
-          <a class="join-bar" href="#onboarding" data-open-register>立即入驻 <span aria-hidden="true"><span class="join-arrow-track"><span class="ui-arrow"></span><span class="ui-arrow join-arrow-copy"></span></span></span></a>
         </div>
+      </section>
+      <section class="join-banner" aria-label="立即入驻抖音来客">
+        <div class="join-banner-visual" aria-hidden="true"><img class="footer-art" src="assets/figma-export/curated/footer31-hands@1.5x.png" width="1680" height="302" decoding="async" data-reveal alt="" /></div>
+        <a class="join-bar" href="#onboarding" data-open-register>立即入驻 <span aria-hidden="true"><span class="join-arrow-track"><span class="ui-arrow"></span><span class="ui-arrow join-arrow-copy"></span></span></span></a>
       </section>
     </main>
 
     <footer class="footer" id="footer" data-section>
-      <img class="footer-tail" src="assets/figma-export/curated/footer-blue-ribbon-figma.png" alt="" />
       <div class="footer-card" data-reveal>
-        <div class="footer-copy"><img class="footer-logo" src="assets/figma-export/curated/footer-logo-original@4x.png" width="176" height="40" alt="抖音来客" /><p>抖音来客是抖音生活服务商家经营平台，商家入驻后将团购商品展现给用户，帮助商家提升线下交易额。</p><div class="footer-benefits"><span class="footer-benefit"><img src="assets/figma-export/curated/Frame 2147229984.png" alt="" />新商流量补贴</span><span class="footer-benefit"><img src="assets/figma-export/curated/核销明细.png" alt="" />蓝V认证</span><span class="footer-benefit"><img src="assets/figma-export/curated/评价管理.png" alt="" />1V1专属指导</span></div></div>
-        <img class="footer-art" src="assets/figma-export/curated/footer-center-hd@2x.png" width="973" height="317" decoding="async" alt="" />
-        <img class="footer-glass" src="assets/figma-export/curated/footer-glass-figma.png" alt="" />
-        <div class="qr-group"><div class="qr"><img class="qr-box" src="assets/figma-export/curated/footer-qr-app-figma.png" alt="抖音来客 App 二维码" /><span>下载抖音来客APP</span></div><div class="qr"><img class="qr-box" src="assets/figma-export/curated/footer-qr-official-figma.png" alt="抖音生活服务公众号二维码" /><span>抖音生活服务公众号</span></div></div>
+        <div class="footer-copy"><img class="footer-logo" src="assets/figma-export/curated/footer31-logo@4x.png" width="176" height="40" alt="抖音来客" /><p>抖音来客是抖音生活服务商家经营平台，商家入驻后将团购商品展现给用户，帮助商家提升线下交易额。</p><div class="footer-benefits"><span class="footer-benefit"><img src="assets/figma-export/curated/footer31-benefit-traffic@4x.png" width="24" height="24" alt="" />新商流量补贴</span><span class="footer-benefit"><img src="assets/figma-export/curated/footer31-benefit-bluev@4x.png" width="24" height="24" alt="" />蓝V认证</span><span class="footer-benefit"><img src="assets/figma-export/curated/footer31-benefit-guide@4x.png" width="24" height="24" alt="" />1V1专属指导</span></div></div>
+        <div class="qr-group"><div class="qr"><img class="qr-box" src="assets/figma-export/curated/footer31-qr-app@3x.png" width="123" height="123" alt="抖音来客 App 二维码" /><span>下载抖音来客APP</span></div><div class="qr"><img class="qr-box" src="assets/figma-export/curated/footer31-qr-official@3x.png" width="123" height="123" alt="抖音生活服务公众号二维码" /><span>抖音生活服务公众号</span></div></div>
       </div>
-      <div class="legal">京ICP备16016397号-3　北京微播视界科技有限公司　客服热线：950529　违法和不良信息举报</div>
+      <div class="legal"><span>京ICP备16016397号-3</span><img class="legal-divider" src="assets/figma-export/curated/footer31-legal-divider.svg" alt="" /><span>北京抖音科技有限公司</span><img class="legal-divider" src="assets/figma-export/curated/footer31-legal-divider.svg" alt="" /><span>北京市海淀区中关村南大街36号12号楼16层1611号</span><img class="legal-divider" src="assets/figma-export/curated/footer31-legal-divider.svg" alt="" /><span>客服热线：950529</span><img class="legal-divider" src="assets/figma-export/curated/footer31-legal-divider.svg" alt="" /><a href="https://lf3-static.bytednsdoc.com/obj/eden-cn/ljpcylz-lmps/ljhwZthlaukjlkulzlp/pc/login/chengdusuojiansuode.pdf" target="_blank" rel="noopener noreferrer">运营主体：成都所见所得科技有限公司</a></div>
     </footer>
 
     <dialog class="join-modal" id="joinModal" aria-labelledby="joinModalTitle">
       <div class="join-modal-layout">
         <div class="join-modal-art" aria-hidden="true">
-          <img class="join-modal-layer" data-figma-node="20792:39224" src="assets/figma-export/curated/modal18-39224.png" style="left: 0px; top: 0px; width: 554px; height: 548px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39226" src="assets/figma-export/curated/modal18-39226.png" style="left: 5.4541015625px; top: 0px; width: 428.958984375px; height: 273.482421875px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39227" src="assets/figma-export/curated/modal18-39227.png" style="left: 57.11767578125px; top: 0px; width: 198.72216796875px; height: 167.1552734375px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39228" src="assets/figma-export/curated/modal18-39228.png" style="left: 294.89453125px; top: 448.1875px; width: 259.06640625px; height: 99.8125px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39229" src="assets/figma-export/curated/modal18-39229.png" style="left: 59.8837890625px; top: 256.755859375px; width: 118.44775390625px; height: 57.72265625px" alt="" />
-          <img class="join-modal-layer join-modal-main-art" data-figma-node="20792:39230" src="assets/figma-export/curated/modal18-39230.png" style="left: 0px; top: 0px; width: 536px; height: 542px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39231" src="assets/figma-export/curated/modal18-39231.png" style="left: 0px; top: 0px; width: 402px; height: 280px" alt="" />
-          <img class="join-modal-layer" data-figma-node="20792:39232" src="assets/figma-export/curated/modal18-39232.png" style="left: 250.39892578125px; top: 312.2919921875px; width: 181.53759765625px; height: 57.1796875px" alt="" />
-          <div class="join-modal-benefits"><span><img src="assets/figma-export/curated/modal18-39235.png" width="28" height="28" alt="" />新商流量补贴</span><span><img src="assets/figma-export/curated/modal18-39251.png" width="28" height="28" alt="" />蓝V认证</span><span><img src="assets/figma-export/curated/modal18-39257.png" width="28" height="28" alt="" />1V1专属指导</span></div>
-          <img class="join-modal-logo" data-figma-node="20792:39276" src="assets/figma-export/curated/modal18-39276.png" width="145" height="44" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188262" src="assets/figma-export/curated/modal33-188262.png" style="left: 0px; top: 0px; width: 521px; height: 548px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188263" src="assets/figma-export/curated/modal33-188263.png" style="left: 0px; top: 0px; width: 458.5703125px; height: 548px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188264" src="assets/figma-export/curated/modal33-188264.png" style="left: 79px; top: 0px; width: 481px; height: 459.1497802734375px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188265" src="assets/figma-export/curated/modal33-188265.png" style="left: 270.4248046875px; top: 0px; width: 289.5751953125px; height: 261.2515869140625px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188266" src="assets/figma-export/curated/modal33-188266.png" style="left: 0px; top: 106.0294189453125px; width: 469.0361328125px; height: 441.9705810546875px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188267" src="assets/figma-export/curated/modal33-188267.png" style="left: 0px; top: 303.92724609375px; width: 277.611328125px; height: 244.07275390625px" alt="" />
+          <img class="join-modal-layer" data-figma-node="20881:188268" src="assets/figma-export/curated/modal33-188268.png" style="left: 0px; top: 0px; width: 378px; height: 234px" alt="" />
+          <div class="join-modal-benefits"><span><img src="assets/figma-export/curated/modal33-188271.png" width="32" height="32" alt="" />新商流量补贴</span><span><img src="assets/figma-export/curated/modal33-188287.png" width="32" height="32" alt="" />蓝V认证</span><span><img src="assets/figma-export/curated/modal33-188293.png" width="32" height="32" alt="" />1V1专属指导</span></div>
+          <img class="join-modal-layer join-modal-main-art" data-figma-node="20881:188298" src="assets/figma-export/curated/modal33-188298.png" style="left: 0px; top: 3.3973388671875px; width: 560px; height: 544.6026611328125px" alt="" />
+          <img class="join-modal-logo" data-figma-node="20881:188313" src="assets/figma-export/curated/modal33-188313.png" width="145" height="44" alt="" />
         </div>
         <div class="join-modal-panel">
           <button class="join-modal-close" type="button" aria-label="关闭入驻弹窗">×</button>
@@ -711,6 +720,42 @@
       syncNavRegister();
 
       const joinModal = document.getElementById('joinModal');
+      const navDownload = document.querySelector('.nav-download');
+      const navDownloadTrigger = navDownload.querySelector('.nav-download-trigger');
+      const navDownloadPopover = document.getElementById('navDownloadQr');
+      let navDownloadTimer = 0;
+      let navDownloadKeyboard = true;
+      const setNavDownloadOpen = open => {
+        clearTimeout(navDownloadTimer);
+        navDownloadTimer = 0;
+        navDownload.classList.toggle('is-open', open);
+        navDownloadTrigger.setAttribute('aria-expanded', String(open));
+        navDownloadPopover.setAttribute('aria-hidden', String(!open));
+        navDownloadPopover.toggleAttribute('inert', !open);
+      };
+      navDownload.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch') setNavDownloadOpen(true);
+      });
+      navDownload.addEventListener('pointerleave', () => {
+        if (navDownloadKeyboard && navDownloadTrigger === document.activeElement) return;
+        navDownloadTimer = setTimeout(() => setNavDownloadOpen(false), 120);
+      });
+      navDownloadTrigger.addEventListener('focus', () => {
+        if (navDownloadKeyboard) setNavDownloadOpen(true);
+      });
+      navDownloadTrigger.addEventListener('click', () => setNavDownloadOpen(true));
+      navDownload.addEventListener('focusout', event => {
+        if (!navDownload.contains(event.relatedTarget)) setNavDownloadOpen(false);
+      });
+      document.addEventListener('keydown', event => {
+        navDownloadKeyboard = true;
+        if (event.key === 'Escape') setNavDownloadOpen(false);
+      });
+      document.addEventListener('pointerdown', event => {
+        navDownloadKeyboard = false;
+        if (!navDownload.contains(event.target)) setNavDownloadOpen(false);
+      });
+      addEventListener('blur', () => setNavDownloadOpen(false));
       const joinModalClose = joinModal.querySelector('.join-modal-close');
       document.querySelectorAll('[data-open-register]').forEach((trigger) => {
         trigger.addEventListener('click', (event) => {
@@ -737,6 +782,7 @@
       let introImageReady = Boolean(skipIntro || initialHeroImage.complete);
       const revealItem = (item) => {
         item.classList.add('visible');
+        if (item.matches('.cases .case-card')) item.closest('.cases').dispatchEvent(new Event('cases-ready'));
         if (item.classList.contains('eco-card') && !reduced) {
           item.classList.add('entering');
           setTimeout(() => item.classList.remove('entering'), 1020);
@@ -809,54 +855,128 @@
         });
       });
 
-      const caseTrack = document.querySelector('.case-row');
-      const casePrev = document.querySelector('.case-arrow-prev');
-      const caseNext = document.querySelector('.case-arrow-next');
+      const caseSection = document.getElementById('cases');
+      const caseTrack = caseSection.querySelector('.case-row');
+      const casePrev = caseSection.querySelector('.case-arrow-prev');
+      const caseNext = caseSection.querySelector('.case-arrow-next');
       const caseCards = [...caseTrack.children];
-      const caseLastPage = Math.max(0, caseCards.length - 4);
-      let casePage = 0;
-      const renderCasePage = () => {
-        caseTrack.style.setProperty('--case-offset', `${casePage * -325}px`);
-        caseTrack.dataset.page = String(casePage);
-        casePrev.disabled = casePage === 0;
-        caseNext.disabled = casePage === caseLastPage;
-        caseCards.forEach((card, index) => {
-          const direction = index === casePage - 1 ? -1 : index === casePage + 4 ? 1 : 0;
-          const visible = index >= casePage - 1 && index <= casePage + 4;
-          card.classList.toggle('case-card--slide-control', Boolean(direction));
-          card.toggleAttribute('inert', !visible);
-          card.setAttribute('aria-hidden', String(!visible));
-          card.tabIndex = visible ? 0 : -1;
-          if (direction) {
-            card.setAttribute('role', 'button');
-            card.dataset.caseDirection = String(direction);
-            card.setAttribute('aria-label', `向${direction < 0 ? '前' : '后'}滑动，查看完整的${card.querySelector('h3').textContent}案例`);
-          } else {
-            card.removeAttribute('role');
-            card.removeAttribute('aria-label');
-            delete card.dataset.caseDirection;
-          }
-          // Only the first arrival is staggered; subsequent slides respond immediately.
-          if (casePage > 0) card.style.setProperty('--delay', '0ms');
-        });
+      const caseStep = 325;
+      const caseLoopWidth = caseCards.length * caseStep;
+      const caseMotion = matchMedia('(prefers-reduced-motion: reduce)');
+      let caseOffset = 0;
+      let caseFrame = 0;
+      let caseLastTime = null;
+      let caseVisible = false;
+      let caseHovered = false;
+      let caseFocused = false;
+      let caseDragging = false;
+      let caseSeek = null;
+      const caseCopies = caseCards.map(card => {
+        const copy = card.cloneNode(true);
+        copy.classList.add('case-loop-copy', 'visible');
+        copy.removeAttribute('data-reveal');
+        copy.removeAttribute('tabindex');
+        copy.setAttribute('aria-hidden', 'true');
+        // Copies contain no interactive controls; keep pointer hit testing for card hover.
+        copy.removeAttribute('inert');
+        copy.style.setProperty('--delay', '0ms');
+        caseTrack.append(copy);
+        return copy;
+      });
+      const renderCases = () => {
+        caseOffset = ((caseOffset % caseLoopWidth) + caseLoopWidth) % caseLoopWidth;
+        caseTrack.style.setProperty('--case-offset', `${-caseOffset}px`);
+        caseTrack.dataset.page = String(Math.floor(caseOffset / caseStep));
       };
-      const moveCases = (direction) => {
-        casePage = Math.max(0, Math.min(caseLastPage, casePage + direction));
-        renderCasePage();
+      const canAutoScrollCases = () => caseVisible && caseCards[0].classList.contains('visible') && !document.hidden && !caseMotion.matches && !caseHovered && !caseFocused && !caseDragging;
+      const stopCaseFrame = () => {
+        cancelAnimationFrame(caseFrame);
+        caseFrame = 0;
+        caseLastTime = null;
       };
+      const caseTick = time => {
+        caseFrame = 0;
+        if (caseLastTime === null) caseLastTime = time;
+        const delta = Math.max(0, Math.min(64, time - caseLastTime));
+        caseLastTime = time;
+        if (caseSeek) {
+          caseSeek.elapsed += delta;
+          const progress = Math.min(1, caseSeek.elapsed / 720);
+          caseOffset = caseSeek.from + caseSeek.distance * (1 - Math.pow(1 - progress, 4));
+          if (progress === 1) caseSeek = null;
+        } else if (canAutoScrollCases()) {
+          caseOffset += delta * .036; // 36 px/s; only transform changes during playback.
+        }
+        renderCases();
+        if (caseSeek || canAutoScrollCases()) caseFrame = requestAnimationFrame(caseTick);
+        else caseLastTime = null;
+      };
+      const syncCasePlayback = () => {
+        if (document.hidden || !caseVisible) { stopCaseFrame(); return; }
+        if (caseSeek || canAutoScrollCases()) {
+          if (!caseFrame) caseFrame = requestAnimationFrame(caseTick);
+        } else stopCaseFrame();
+      };
+      const pauseCaseScroll = () => {
+        // Keep the exact visible offset, including an in-progress button slide.
+        caseSeek = null;
+        stopCaseFrame();
+      };
+      const moveCases = direction => {
+        pauseCaseScroll();
+        caseCards.forEach(card => card.style.setProperty('--delay', '0ms'));
+        if (caseMotion.matches) {
+          caseOffset += direction * caseStep;
+          renderCases();
+          return;
+        }
+        if (direction < 0 && caseOffset < caseStep) caseOffset += caseLoopWidth;
+        caseSeek = { from: caseOffset, distance: direction * caseStep, elapsed: 0 };
+        syncCasePlayback();
+      };
+      casePrev.disabled = caseNext.disabled = false;
       casePrev.addEventListener('click', () => moveCases(-1));
       caseNext.addEventListener('click', () => moveCases(1));
-      caseCards.forEach((card) => {
-        card.addEventListener('click', () => {
-          if (card.dataset.caseDirection) moveCases(Number(card.dataset.caseDirection));
+      [...caseCards, ...caseCopies].forEach(card => {
+        card.addEventListener('pointerenter', event => {
+          if (event.pointerType === 'touch') return;
+          caseHovered = true;
+          pauseCaseScroll();
         });
-        card.addEventListener('keydown', (event) => {
-          if (!card.dataset.caseDirection || (event.key !== 'Enter' && event.key !== ' ')) return;
-          event.preventDefault();
-          moveCases(Number(card.dataset.caseDirection));
-        });
+        card.addEventListener('pointerleave', () => { caseHovered = false; syncCasePlayback(); });
       });
-      renderCasePage();
+      caseSection.addEventListener('pointerdown', () => { caseDragging = true; caseFocused = false; pauseCaseScroll(); });
+      const endCasePointer = () => { caseDragging = false; syncCasePlayback(); };
+      addEventListener('pointerup', endCasePointer);
+      addEventListener('pointercancel', endCasePointer);
+      caseSection.addEventListener('focusin', event => {
+        caseFocused = !caseDragging;
+        pauseCaseScroll();
+        const card = event.target.closest('.case-card');
+        const index = caseCards.indexOf(card);
+        if (index >= 0) {
+          const left = index * caseStep;
+          // Reveal the real card when reached by keyboard; copies stay decorative.
+          if (left < caseOffset || left + 305 > caseOffset + 1280) {
+            caseOffset = left;
+            renderCases();
+          }
+        }
+      });
+      caseSection.addEventListener('focusout', event => {
+        if (event.relatedTarget && caseSection.contains(event.relatedTarget)) return;
+        caseFocused = false;
+        syncCasePlayback();
+      });
+      document.addEventListener('visibilitychange', syncCasePlayback);
+      caseSection.addEventListener('cases-ready', syncCasePlayback);
+      caseMotion.addEventListener?.('change', () => { pauseCaseScroll(); syncCasePlayback(); });
+      const casePlaybackObserver = new IntersectionObserver(entries => {
+        caseVisible = entries.some(entry => entry.isIntersecting);
+        syncCasePlayback();
+      }, { threshold: .15 });
+      casePlaybackObserver.observe(caseTrack);
+      renderCases();
 
       // Figma: rotate industry figures every three seconds; hovering a card pins its figures.
       const industrySection = document.getElementById('industries');
@@ -1161,7 +1281,7 @@
       const stepsTabList = document.querySelector('.steps-tabs');
       const stepsTabs = [...stepsTabList.querySelectorAll('[role="tab"]')];
       const stepsPanels = stepsTabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
-      // Twain's card hover: 800px perspective, +/-5deg, 450ms ease-out.
+      // Enhanced card hover: 800px perspective, +/-9deg, 450ms ease-out.
       // The outer article remains a stable hit area while its complete surface tilts.
       const stepTiltPointer = matchMedia('(hover: hover) and (pointer: fine)');
       const stepTiltReduced = matchMedia('(prefers-reduced-motion: reduce)');
@@ -1191,8 +1311,8 @@
             if (!bounds.width || !bounds.height) return;
             const x = Math.max(-1, Math.min(1, (pointerX - bounds.left) / bounds.width * 2 - 1));
             const y = Math.max(-1, Math.min(1, (pointerY - bounds.top) / bounds.height * 2 - 1));
-            surface.style.setProperty('--step-rotate-x', `${(-y * 5).toFixed(3)}deg`);
-            surface.style.setProperty('--step-rotate-y', `${(x * 5).toFixed(3)}deg`);
+            surface.style.setProperty('--step-rotate-x', `${(-y * 9).toFixed(3)}deg`);
+            surface.style.setProperty('--step-rotate-y', `${(x * 9).toFixed(3)}deg`);
           });
         };
         card.addEventListener('pointermove', follow);
